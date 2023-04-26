@@ -30,6 +30,14 @@ export default function Cart(props) {
     }
   });
 
+  var sum = 0;
+
+  for (let i in cart) {
+    if (cart.hasOwnProperty(i)) {
+      sum = sum + cart[i];
+    }
+  }
+
   const totalCartPrice = getTotalCartAmount(newArr);
 
   const numberFormatter = new Intl.NumberFormat("en-US", {
@@ -43,7 +51,12 @@ export default function Cart(props) {
       <Link className="return" to="/">
         <p className="return-text"> &#8592; Continue Shopping</p>
       </Link>
-      <div className="cart-flex">{cartElement}</div>
+      {sum > 0 ? (
+        <div className="cart-flex">{cartElement}</div>
+      ) : (
+        <div>You have no items in your cart</div>
+      )}
+
       <p style={{ textAlign: "right" }}>
         {"Cart total: "}
         {totalCartFormatter[0].value}
